@@ -12,5 +12,8 @@ class Flier(
 ) {
 
     val averageAirspeed: Int = 3
+    val minAirspeed: Int = 1
+    val maxAirspeed: Int = 6
 
+    val maxHeight = 4
 }

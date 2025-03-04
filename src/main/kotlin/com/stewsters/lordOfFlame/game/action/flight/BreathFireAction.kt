@@ -5,7 +5,7 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
 
-class MoveForwardAction : Action {
+class BreathFireAction : Action {
 
 
     override fun doIt(
@@ -26,26 +26,26 @@ class MoveForwardAction : Action {
         }
 
         // Do it
+        nextGrid.get().satelliteData.get().soldiers.forEach { soldier -> hexMap.takeDamage( soldier, 30) }
+
         soldier.pos = nextCoord
         grid.get().satelliteData.get().soldiers.remove(soldier)
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
 
-        // TODO: go towards average airspeed
 
         val flier = soldier.flier
-        if (flier != null) {
-            flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
-                flier.averageAirspeed - 1
-            else if (flier.airspeed < flier.averageAirspeed)
-                flier.averageAirspeed + 1
-            else flier.airspeed
-
-            // high airspeed reduces time to fly a hex
-            return Math.round(100f / Math.max(flier.airspeed, 1))
-        } else {
-            return soldier.soldierType.groundSpeed
+        if (flier == null) {
+            return 0
         }
 
+        flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
+            flier.averageAirspeed - 1
+        else if (flier.airspeed < flier.averageAirspeed)
+            flier.averageAirspeed + 1
+        else flier.airspeed
+
+        // high airspeed reduces time to fly a hex
+        return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
 }

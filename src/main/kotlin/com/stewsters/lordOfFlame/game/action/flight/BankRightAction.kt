@@ -29,24 +29,22 @@ class BankRightAction : Action {
             return 0
         }
 
+        val flier = soldier.flier
+        if (flier == null) {
+            return 0
+        }
+
         // Do it
         soldier.facing = newFacing
         soldier.pos = nextCoord
         grid.get().satelliteData.get().soldiers.remove(soldier)
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
 
-        val flier = soldier.flier
-        if (flier != null) {
+        flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
+            flier.averageAirspeed - 1
+        else flier.airspeed
 
-            flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
-                flier.averageAirspeed - 1
-            else flier.airspeed
-
-            return Math.round(100f / Math.max(flier.airspeed, 1))
-        } else {
-            return soldier.soldierType.groundSpeed
-        }
-
+        return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
 }

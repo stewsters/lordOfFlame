@@ -85,4 +85,11 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
 
     }
 
+    fun takeDamage(soldier: Soldier, damage: Int) {
+        soldier.hp -= damage
+        if (soldier.hp <= 0) {
+            turnQueue.remove(soldier)
+        }
+    }
+
 }

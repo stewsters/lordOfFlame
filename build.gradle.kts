@@ -19,7 +19,7 @@ dependencies {
 
     implementation("org.processing:core:4.3.2")
     implementation("com.github.Hexworks.mixite:mixite.core-jvm:2018.2.0-RELEASE")
-    implementation("com.github.stewsters:kaiju:1.6")
+    implementation("com.github.stewsters:kaiju:1.7")
 }
 
 // application main

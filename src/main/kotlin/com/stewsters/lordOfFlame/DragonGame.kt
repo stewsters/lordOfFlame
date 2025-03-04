@@ -4,7 +4,10 @@ import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankLeftAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankRightAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.MoveForwardAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BreathFireAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.ClimbAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.DiveAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
 import com.stewsters.com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.generator.generateMap
@@ -92,14 +95,14 @@ class DragonGame : PApplet() {
     override fun keyTyped() {
 
         PlayerAi.nextAction = when (key) {
-            'w' -> MoveForwardAction()
+            'w' -> FlyForwardAction()
             'e' -> BankRightAction()
             'q' -> BankLeftAction()
 //                'd' -> TurnRightAction()
 //                'a' -> TurnLeftAction()
-//                'x' -> DiveAction()
-//                's' -> ClimbAction()
-//                'f' -> BreathFireAction()
+                'x' -> DiveAction()
+                's' -> ClimbAction()
+                'f' -> BreathFireAction()
 //                'r' -> RoarAction()
             else -> null
         }

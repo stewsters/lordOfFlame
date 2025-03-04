@@ -5,7 +5,7 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
 
-class BankLeftAction : Action {
+class FlyForwardAction : Action {
 
 
     override fun doIt(
@@ -13,14 +13,11 @@ class BankLeftAction : Action {
         hexMap: HexMap
     ): Int {
 
-        // remove from map
-        println("Bank Left")
-        val newFacing = soldier.facing.rotateLeft()
-
+        println("Fly Forward")
         val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
 
         // next grid
-        val nextCoord = soldier.pos.plus(newFacing);
+        val nextCoord = soldier.pos.plus(soldier.facing)
         val nextGrid = hexMap.grid.getByCubeCoordinate(nextCoord)
 
         if (!nextGrid.isPresent) {
@@ -33,13 +30,14 @@ class BankLeftAction : Action {
         }
 
         // Do it
-        soldier.facing = newFacing
         soldier.pos = nextCoord
         grid.get().satelliteData.get().soldiers.remove(soldier)
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
 
         flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
             flier.averageAirspeed - 1
+        else if (flier.airspeed < flier.averageAirspeed)
+            flier.averageAirspeed + 1
         else flier.airspeed
 
         // high airspeed reduces time to fly a hex

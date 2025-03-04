@@ -4,8 +4,10 @@ import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
+import kotlin.math.max
+import kotlin.math.min
 
-class BankLeftAction : Action {
+class DiveAction : Action {
 
 
     override fun doIt(
@@ -13,36 +15,33 @@ class BankLeftAction : Action {
         hexMap: HexMap
     ): Int {
 
-        // remove from map
-        println("Bank Left")
-        val newFacing = soldier.facing.rotateLeft()
-
+        println("Climb")
         val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
 
         // next grid
-        val nextCoord = soldier.pos.plus(newFacing);
+        val nextCoord = soldier.pos.plus(soldier.facing)
         val nextGrid = hexMap.grid.getByCubeCoordinate(nextCoord)
 
         if (!nextGrid.isPresent) {
             println("off the edge")
             return 0
         }
+
         val flier = soldier.flier
-        if (flier == null) {
+        if (flier == null || flier.elevation <= nextGrid.get().satelliteData.get().type!!.height) {
             return 0
         }
 
         // Do it
-        soldier.facing = newFacing
         soldier.pos = nextCoord
         grid.get().satelliteData.get().soldiers.remove(soldier)
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
 
-        flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
-            flier.averageAirspeed - 1
-        else flier.airspeed
+        flier.elevation--
+        flier.airspeed = min( flier.airspeed + 1, flier.maxAirspeed)
 
         // high airspeed reduces time to fly a hex
         return Math.round(100f / Math.max(flier.airspeed, 1))
+
     }
 }
