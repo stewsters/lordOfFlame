@@ -11,7 +11,7 @@ enum class SoldierType(
     val maxMorale: Int,
     val groundSpeed: Int,
     val groundTurnSpeed: Int,
-    val attacks: List<Attack> = listOf(), //range / damage / armorPierce?
+    val attacks: List<Attack> = listOf(),
     val defaultAi: Ai = MeleeAi(),
 ) {
 
@@ -22,7 +22,10 @@ enum class SoldierType(
         maxMorale = 1000,
         groundSpeed = 100,
         groundTurnSpeed = 30,
-        defaultAi = PlayerAi()
+        defaultAi = PlayerAi(),
+        attacks = listOf(
+            Attack(damage = 100, armorPierce = 20, range = 1, timeCost = 100)
+        )
     ),
 
     // TODO ranged
@@ -31,7 +34,11 @@ enum class SoldierType(
         maxHp = 100,
         maxMorale = 100,
         groundSpeed = 100,
-        groundTurnSpeed = 20
+        groundTurnSpeed = 20,
+        attacks = listOf(
+            Attack(damage = 20, armorPierce = 1, range = 1, timeCost = 100),
+            Attack(damage = 40, armorPierce = 2, range = 4, timeCost = 100),
+        ),
     ),
 
     // TODO: fast, expensive, charge
@@ -40,7 +47,10 @@ enum class SoldierType(
         maxHp = 200,
         maxMorale = 100,
         groundSpeed = 50,
-        groundTurnSpeed = 40
+        groundTurnSpeed = 40,
+        attacks = listOf(
+            Attack(damage = 60, armorPierce = 30, range = 1, timeCost = 100),
+        )
     ),
 
     // TODO: armored, can ignore armor/shields
@@ -49,7 +59,10 @@ enum class SoldierType(
         maxHp = 100,
         maxMorale = 100,
         groundSpeed = 100,
-        groundTurnSpeed = 20
+        groundTurnSpeed = 20,
+        attacks = listOf(
+            Attack(damage = 60, armorPierce = 100, range = 1, timeCost = 100),
+        )
     ),
 
     // TODO: defense vs front arc, charge
@@ -58,7 +71,10 @@ enum class SoldierType(
         maxHp = 100,
         maxMorale = 100,
         groundSpeed = 100,
-        groundTurnSpeed = 20
+        groundTurnSpeed = 20,
+        attacks = listOf(
+            Attack(damage = 40, armorPierce = 10, range = 1, timeCost = 100),
+        )
     ),
 
     // TODO: shielded
@@ -67,7 +83,10 @@ enum class SoldierType(
         maxHp = 100,
         maxMorale = 100,
         groundSpeed = 100,
-        groundTurnSpeed = 20
+        groundTurnSpeed = 20,
+        attacks = listOf(
+            Attack(damage = 50, armorPierce = 10, range = 1, timeCost = 100),
+        )
     );
 
 

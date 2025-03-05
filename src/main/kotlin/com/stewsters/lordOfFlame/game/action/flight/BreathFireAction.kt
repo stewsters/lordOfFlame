@@ -19,24 +19,24 @@ class BreathFireAction : Action {
         }
 
         println("Fly Forward")
-        val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
+        val currentHexagon = hexMap.grid.getByCubeCoordinate(soldier.pos)
 
         // next grid
         val nextCoord = soldier.pos.plus(soldier.facing)
-        val nextGrid = hexMap.grid.getByCubeCoordinate(nextCoord)
+        val nextHexagon = hexMap.grid.getByCubeCoordinate(nextCoord)
 
-        if (!nextGrid.isPresent) {
+        if (!nextHexagon.isPresent) {
             println("off the edge")
             return 0
         }
 
         // Burn em
-        var tileData = nextGrid.get().satelliteData.get()
-        hexMap.damageTile(tileData, 50, 30)
+        var nextTileData = nextHexagon.get().satelliteData.get()
+        hexMap.damageTile(nextTileData, 50, 30)
 
         soldier.pos = nextCoord
-        grid.get().satelliteData.get().soldiers.remove(soldier)
-        nextGrid.get().satelliteData.get().soldiers.add(soldier)
+        currentHexagon.get().satelliteData.get().soldiers.remove(soldier)
+        nextTileData.soldiers.add(soldier)
 
         flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
             flier.averageAirspeed - 1

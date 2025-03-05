@@ -27,10 +27,23 @@ class WalkForwardAction : Action {
         }
 
         // Make sure we can walk on it
-        val nextGridTileType = nextGrid.get().satelliteData?.get()?.type ?: TerrainType.GRASSLAND
+        val nextTileData = nextGrid.get().satelliteData.get()
 
+        val nextGridTileType = nextTileData.type ?: TerrainType.GRASSLAND
         if (nextGridTileType.blocksWalker) {
             println("Cant Walk There")
+            return 0
+        }
+
+        if (nextTileData.soldiers.isNotEmpty()) {
+            // if enemy, do an attack?
+            val potentialTargets = nextTileData.soldiers.filter { it.faction != soldier.faction && it.flier == null }
+
+            if (potentialTargets.isNotEmpty()) {
+                val attack = soldier.soldierType.attacks.filter { it.range == 1 }.random()
+                hexMap.damageTile(nextTileData, attack.damage, 10)
+                return attack.timeCost
+            }
             return 0
         }
 

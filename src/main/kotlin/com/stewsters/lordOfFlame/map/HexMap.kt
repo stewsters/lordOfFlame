@@ -67,23 +67,30 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
 
 
     fun takeTurn() {
-        val turnTaker = turnQueue.poll()
-        if (turnTaker == null) {
-            return // No one to process
+        var turnsCounter = 0;
+
+        while (turnsCounter < 10) {
+            val turnTaker = turnQueue.poll()
+            if (turnTaker == null) {
+                return // No one to process
+            }
+
+            // Ask ai for an action
+            val nextAction = turnTaker.soldierType.defaultAi.getAction(turnTaker, this)
+
+            // if we have one, do it
+            if (nextAction != null) {
+                val cost = nextAction.doIt(turnTaker, this)
+                turnTaker.nextTurn += cost
+                turnsCounter++
+            }
+            // if we are still alive, add em back into the queue
+            turnQueue.add(turnTaker)
+
+            if (nextAction == null) {
+                break // this means its a player
+            }
         }
-
-        // Ask ai for an action
-        val nextAction = turnTaker.soldierType.defaultAi.getAction(turnTaker, this)
-
-        // if we have one, do it
-        if (nextAction != null) {
-            val cost = nextAction.doIt(turnTaker, this)
-            turnTaker.nextTurn += cost
-        }
-
-        // if we are still alive, add em back into the queue
-        turnQueue.add(turnTaker)
-
     }
 
     fun damageTile(tileData: TileData, damage: Int, morale: Int) {
