@@ -8,7 +8,7 @@ enum class TerrainType(
     val color: Int,
     val traversalCost: Double = 1.0,
     val multiIcon: Boolean = false,
-    val blocksWalker:Boolean = false
+    val blocksWalker: Boolean = false
 ) {
 
     URBAN(0, 0xFFEEEEEE.toInt()),

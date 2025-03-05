@@ -13,6 +13,11 @@ class BreathFireAction : Action {
         hexMap: HexMap
     ): Int {
 
+        val flier = soldier.flier
+        if (flier == null) {
+            return 0
+        }
+
         println("Fly Forward")
         val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
 
@@ -25,18 +30,13 @@ class BreathFireAction : Action {
             return 0
         }
 
-        // Do it
-        nextGrid.get().satelliteData.get().soldiers.forEach { soldier -> hexMap.takeDamage( soldier, 30) }
+        // Burn em
+        var tileData = nextGrid.get().satelliteData.get()
+        hexMap.damageTile(tileData, 50, 30)
 
         soldier.pos = nextCoord
         grid.get().satelliteData.get().soldiers.remove(soldier)
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
-
-
-        val flier = soldier.flier
-        if (flier == null) {
-            return 0
-        }
 
         flier.airspeed = if (flier.airspeed > flier.averageAirspeed)
             flier.averageAirspeed - 1

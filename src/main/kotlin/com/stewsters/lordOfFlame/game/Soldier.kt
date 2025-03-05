@@ -11,7 +11,7 @@ class Soldier(
     var hp: Int = soldierType.maxHp,
     var morale: Int = soldierType.maxMorale,
     var nextTurn: Int,
-    val ai : Ai = soldierType.defaultAi,
+    val ai: Ai = soldierType.defaultAi,
     var order: Order? = null,
     val flier: Flier? = if (soldierType == SoldierType.DRAGON)
         Flier(airspeed = 2, elevation = 2)

@@ -19,12 +19,12 @@ fun populate(hexMap: HexMap): Soldier {
     )
     hexMap.add(dragon)
 
-    hexMap.cities.drop(1).forEachIndexed {i, it->
+    hexMap.cities.drop(1).forEachIndexed { i, it ->
         val solder = Soldier(
             pos = it.cubeCoordinate,
             facing = Facing.entries.random(),
             faction = Faction.entries.get(i % 2),
-            soldierType = SoldierType.SPEARMEN,
+            soldierType = SoldierType.values().filter { it != SoldierType.DRAGON }.random(),
 //            hp = TODO(),
 //            morale = TODO(),
             nextTurn = Random.nextInt(100)

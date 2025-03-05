@@ -21,6 +21,7 @@ import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PGraphics
 import processing.core.PImage
+import java.awt.Color
 import java.io.File
 
 class DragonGame : PApplet() {
@@ -100,9 +101,9 @@ class DragonGame : PApplet() {
             'q' -> BankLeftAction()
 //                'd' -> TurnRightAction()
 //                'a' -> TurnLeftAction()
-                'x' -> DiveAction()
-                's' -> ClimbAction()
-                'f' -> BreathFireAction()
+            'x' -> DiveAction()
+            's' -> ClimbAction()
+            'f' -> BreathFireAction()
 //                'r' -> RoarAction()
             else -> null
         }
@@ -206,6 +207,8 @@ class DragonGame : PApplet() {
                 rotate(radians(soldier.facing.angle()));
                 tint(soldier.faction.color.rgb);
                 image(soldier.soldierType.icon, 0f, 0f)
+                fill(Color.red.rgb)
+                rect(-20f, 25f, 40f * (soldier.hp.toFloat() / soldier.soldierType.maxHp.toFloat()), 10f)
                 popMatrix()
             }
 

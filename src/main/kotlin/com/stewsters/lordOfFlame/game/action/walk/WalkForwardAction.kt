@@ -29,7 +29,7 @@ class WalkForwardAction : Action {
         // Make sure we can walk on it
         val nextGridTileType = nextGrid.get().satelliteData?.get()?.type ?: TerrainType.GRASSLAND
 
-        if(nextGridTileType.blocksWalker) {
+        if (nextGridTileType.blocksWalker) {
             println("Cant Walk There")
             return 0
         }

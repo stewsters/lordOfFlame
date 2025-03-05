@@ -10,6 +10,7 @@ import org.hexworks.mixite.core.api.Hexagon
 import org.hexworks.mixite.core.api.HexagonalGrid
 import org.hexworks.mixite.core.api.HexagonalGridBuilder
 import org.hexworks.mixite.core.api.HexagonalGridCalculator
+import kotlin.math.max
 
 // Can build a city on this
 val cityTiles = listOf(TerrainType.FOREST, TerrainType.GRASSLAND)
@@ -85,10 +86,17 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
 
     }
 
-    fun takeDamage(soldier: Soldier, damage: Int) {
-        soldier.hp -= damage
-        if (soldier.hp <= 0) {
+    fun damageTile(tileData: TileData, damage: Int, morale: Int) {
+
+        tileData.soldiers.forEach { soldier ->
+            soldier.hp -= damage
+            soldier.morale = max(0, soldier.morale - morale)
+        }
+        val dead = tileData.soldiers.filter { it -> it.hp <= 0 }
+
+        dead.forEach { soldier ->
             turnQueue.remove(soldier)
+            tileData.soldiers.remove(soldier)
         }
     }
 

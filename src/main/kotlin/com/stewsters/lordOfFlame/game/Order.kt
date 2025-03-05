@@ -1,6 +1,6 @@
 package com.stewsters.com.stewsters.lordOfFlame.game
 
 
-class Order (
+class Order(
     val positionId: String
 )

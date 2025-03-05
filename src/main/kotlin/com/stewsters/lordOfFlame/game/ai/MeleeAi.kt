@@ -7,7 +7,7 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardActio
 import com.stewsters.lordOfFlame.map.HexMap
 import kotlin.random.Random
 
-class MeleeAi: Ai {
+class MeleeAi : Ai {
 
     override fun getAction(
         soldier: Soldier,
@@ -15,9 +15,9 @@ class MeleeAi: Ai {
     ): Action? {
 
 
-       return when(Random.nextInt(3)) {
-            1-> TurnInPlaceAction(true)
-            2-> TurnInPlaceAction(false)
+        return when (Random.nextInt(3)) {
+            1 -> TurnInPlaceAction(true)
+            2 -> TurnInPlaceAction(false)
             else -> WalkForwardAction()
         }
     }

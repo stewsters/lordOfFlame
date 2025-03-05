@@ -15,7 +15,7 @@ data class TileData(
     override var opaque: Boolean = false,
     override var passable: Boolean = true
 
-) : SatelliteData{
+) : SatelliteData {
 
     val soldiers: MutableList<Soldier> = mutableListOf<Soldier>()
 }

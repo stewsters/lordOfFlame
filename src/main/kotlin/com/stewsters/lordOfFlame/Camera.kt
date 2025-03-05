@@ -1,6 +1,5 @@
 package com.stewsters.lordOfFlame
 
-import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.Hexagon
 import org.hexworks.mixite.core.api.HexagonalGrid
 import org.hexworks.mixite.core.vendor.Maybe

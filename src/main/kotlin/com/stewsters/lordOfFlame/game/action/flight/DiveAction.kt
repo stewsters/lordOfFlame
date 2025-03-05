@@ -4,7 +4,6 @@ import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
-import kotlin.math.max
 import kotlin.math.min
 
 class DiveAction : Action {
@@ -38,7 +37,7 @@ class DiveAction : Action {
         nextGrid.get().satelliteData.get().soldiers.add(soldier)
 
         flier.elevation--
-        flier.airspeed = min( flier.airspeed + 1, flier.maxAirspeed)
+        flier.airspeed = min(flier.airspeed + 1, flier.maxAirspeed)
 
         // high airspeed reduces time to fly a hex
         return Math.round(100f / Math.max(flier.airspeed, 1))
