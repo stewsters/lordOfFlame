@@ -5,13 +5,16 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.lordOfFlame.map.HexMap
 
 class TurnInPlaceAction(
-    val right: Boolean
+    private val soldier: Soldier,
+    private val hexMap: HexMap,
+    private val right: Boolean
 ) : Action {
 
+    override fun canDo(): Boolean {
+        return true
+    }
 
     override fun doIt(
-        soldier: Soldier,
-        hexMap: HexMap
     ): Int {
 
         println("Turn ${right}")

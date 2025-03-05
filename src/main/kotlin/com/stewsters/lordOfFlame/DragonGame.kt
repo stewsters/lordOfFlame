@@ -2,12 +2,6 @@ package com.stewsters.lordOfFlame
 
 import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankLeftAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankRightAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BreathFireAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.ClimbAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.DiveAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
 import com.stewsters.com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.generator.generateMap
@@ -32,7 +26,7 @@ class DragonGame : PApplet() {
 
     private val camera = Camera()
     private lateinit var hexMap: HexMap
-    var mainCharacter: Soldier? = null
+    lateinit var mainCharacter: Soldier
 
     override fun settings() {
         size(1200, 800)
@@ -94,24 +88,7 @@ class DragonGame : PApplet() {
 
 
     override fun keyTyped() {
-
-        PlayerAi.nextAction = when (key) {
-            'w' -> FlyForwardAction()
-            'e' -> BankRightAction()
-            'q' -> BankLeftAction()
-//                'd' -> TurnRightAction()
-//                'a' -> TurnLeftAction()
-            'x' -> DiveAction()
-            's' -> ClimbAction()
-            'f' -> BreathFireAction()
-//                'r' -> RoarAction()
-            else -> null
-        }
-
-//            val ai = mainCharacter?.ai
-//        if(ai!=null && ai is PlayerAi){
-//
-//        }
+        PlayerAi.keyTyped(key, mainCharacter, hexMap)
     }
 
     override fun draw() {
@@ -120,17 +97,14 @@ class DragonGame : PApplet() {
         hexMap.takeTurn()
 
         // handle focus on character
-        val focus = mainCharacter?.pos
-        if (focus != null) {
-            val grid = hexMap.grid.getByCubeCoordinate(focus)
-            if (grid.isPresent) {
-                val hex = grid.get()
-                camera.position.set(-hex.centerX.toFloat(), -hex.centerY.toFloat(), 1f)
+        val focus = mainCharacter.pos
 
-            }
+        val focusGrid = hexMap.grid.getByCubeCoordinate(focus)
+        if (focusGrid.isPresent) {
+            val hex = focusGrid.get()
+            camera.position.set(-hex.centerX.toFloat(), -hex.centerY.toFloat(), 1f)
 
         }
-
 
         // Draw the background
         imageMode(PConstants.CORNER)
@@ -246,7 +220,23 @@ class DragonGame : PApplet() {
         strokeWeight(1f)
 
         color(0)
-        pop()
+        pop() // Done with camera
+
+        // Draw in screen space
+        fill(Color.white.rgb)
+        rect(0f, 0f, 150f, 150f)
+        fill(Color.BLACK.rgb)
+
+        val tileOver = hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get().satelliteData.get()
+        val groundHeight = tileOver.type?.height ?: 0
+        val absHeight = mainCharacter.flier?.elevation ?: groundHeight
+        val heightOverGround = absHeight - groundHeight
+
+        text("Abs Height : ${absHeight}", 10f, 10f)
+        text("Ground Height : ${groundHeight}", 10f, 20f)
+        text("Height over ground: ${heightOverGround}", 10f, 30f)
+        text("AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}", 10f, 40f)
+
     }
 
 }

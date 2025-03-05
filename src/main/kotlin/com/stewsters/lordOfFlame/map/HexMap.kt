@@ -79,8 +79,8 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
             val nextAction = turnTaker.soldierType.defaultAi.getAction(turnTaker, this)
 
             // if we have one, do it
-            if (nextAction != null) {
-                val cost = nextAction.doIt(turnTaker, this)
+            if (nextAction != null && nextAction.canDo()) {
+                val cost = nextAction.doIt()
                 turnTaker.nextTurn += cost
                 turnsCounter++
             }

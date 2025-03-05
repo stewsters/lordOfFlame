@@ -6,37 +6,41 @@ import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
 import kotlin.math.min
 
-class DiveAction : Action {
+class DiveAction(
+    private val soldier: Soldier,
+    private val hexMap: HexMap
+) : Action {
 
+    val currentHex = hexMap.grid.getByCubeCoordinate(soldier.pos).get()
 
-    override fun doIt(
-        soldier: Soldier,
-        hexMap: HexMap
-    ): Int {
+    // next grid
+    val nextCoord = soldier.pos.plus(soldier.facing)
+    val nextHex = hexMap.grid.getByCubeCoordinate(nextCoord)
+    val flier = soldier.flier
 
-        println("Climb")
-        val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
-
-        // next grid
-        val nextCoord = soldier.pos.plus(soldier.facing)
-        val nextGrid = hexMap.grid.getByCubeCoordinate(nextCoord)
-
-        if (!nextGrid.isPresent) {
+    override fun canDo(): Boolean {
+        if (!nextHex.isPresent) {
             println("off the edge")
-            return 0
+            return false
+        }
+        if (flier == null) {
+            return false
         }
 
-        val flier = soldier.flier
-        if (flier == null || flier.elevation <= nextGrid.get().satelliteData.get().type!!.height) {
-            return 0
+        if (flier.elevation <= nextHex.get().satelliteData.get().type!!.height + 1) {
+            return false // must land
         }
+        return true
+    }
 
+    override fun doIt(): Int {
+        println("Dive")
         // Do it
         soldier.pos = nextCoord
-        grid.get().satelliteData.get().soldiers.remove(soldier)
-        nextGrid.get().satelliteData.get().soldiers.add(soldier)
+        currentHex.satelliteData.get().soldiers.remove(soldier)
+        nextHex.get().satelliteData.get().soldiers.add(soldier)
 
-        flier.elevation--
+        flier!!.elevation--
         flier.airspeed = min(flier.airspeed + 1, flier.maxAirspeed)
 
         // high airspeed reduces time to fly a hex

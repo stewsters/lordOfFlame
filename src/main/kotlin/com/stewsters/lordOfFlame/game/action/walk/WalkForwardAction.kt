@@ -6,53 +6,52 @@ import com.stewsters.com.stewsters.lordOfFlame.game.plus
 import com.stewsters.lordOfFlame.map.HexMap
 import com.stewsters.lordOfFlame.types.TerrainType
 
-class WalkForwardAction : Action {
+class WalkForwardAction(
+    private val soldier: Soldier,
+    private val hexMap: HexMap
+) : Action {
 
 
-    override fun doIt(
-        soldier: Soldier,
-        hexMap: HexMap
-    ): Int {
+    val currentHex = hexMap.grid.getByCubeCoordinate(soldier.pos).get()
 
-        println("Walk Forward")
-        val grid = hexMap.grid.getByCubeCoordinate(soldier.pos)
+    // next grid
+    val nextCoord = soldier.pos.plus(soldier.facing)
+    val nextGex = hexMap.grid.getByCubeCoordinate(nextCoord)
 
-        // next grid
-        val nextCoord = soldier.pos.plus(soldier.facing)
-        val nextGrid = hexMap.grid.getByCubeCoordinate(nextCoord)
+    // Make sure we can walk on it
+    val nextTileData = nextGex.get().satelliteData.get()
 
-        if (!nextGrid.isPresent) {
+    val nextGridTileType = nextTileData.type ?: TerrainType.GRASSLAND
+
+
+    override fun canDo(): Boolean {
+        if (!nextGex.isPresent) {
             println("off the edge")
-            return 0
+            return false
         }
 
-        // Make sure we can walk on it
-        val nextTileData = nextGrid.get().satelliteData.get()
-
-        val nextGridTileType = nextTileData.type ?: TerrainType.GRASSLAND
         if (nextGridTileType.blocksWalker) {
             println("Cant Walk There")
-            return 0
+            return false
         }
-
         if (nextTileData.soldiers.isNotEmpty()) {
-            // if enemy, do an attack?
-            val potentialTargets = nextTileData.soldiers.filter { it.faction != soldier.faction && it.flier == null }
-
-            if (potentialTargets.isNotEmpty()) {
-                val attack = soldier.soldierType.attacks.filter { it.range == 1 }.random()
-                hexMap.damageTile(nextTileData, attack.damage, 10)
-                return attack.timeCost
-            }
-            return 0
+            "Units in target space"
+            return false
         }
+
+        return true
+    }
+
+    override fun doIt(): Int {
+
+        println("Walk Forward")
 
         // Do it
         soldier.pos = nextCoord
-        grid.get().satelliteData.get().soldiers.remove(soldier)
-        nextGrid.get().satelliteData.get().soldiers.add(soldier)
+        currentHex.satelliteData.get().soldiers.remove(soldier)
+        nextGex.get().satelliteData.get().soldiers.add(soldier)
 
-        // TODO: some transitions should cost more
+        // TODO: multiply by terrain speed?
         return soldier.soldierType.groundSpeed
 
     }
