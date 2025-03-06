@@ -1,8 +1,10 @@
 package com.stewsters.lordOfFlame
 
+import com.stewsters.com.stewsters.lordOfFlame.game.Faction
 import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
+import com.stewsters.com.stewsters.lordOfFlame.game.assignActions
 import com.stewsters.com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.generator.generateMap
 import com.stewsters.lordOfFlame.map.HexMap
@@ -66,6 +68,7 @@ class DragonGame : PApplet() {
 
         mainCharacter = populate(hexMap)
 
+        assignActions(Faction.PLAYER, hexMap)
 
         // set initial camera pos
         camera.position.x = -widthTiles / 2f * radius.toFloat()
@@ -182,7 +185,10 @@ class DragonGame : PApplet() {
                 tint(soldier.faction.color.rgb);
                 image(soldier.soldierType.icon, 0f, 0f)
                 fill(Color.red.rgb)
-                rect(-20f, 25f, 40f * (soldier.hp.toFloat() / soldier.soldierType.maxHp.toFloat()), 10f)
+                rect(-20f, 30f, 40f * (soldier.hp.toFloat() / soldier.soldierType.maxHp.toFloat()), 5f)
+                fill(Color.green.rgb)
+                rect(-20f, 25f, 40f * (soldier.morale.toFloat() / soldier.soldierType.maxMorale.toFloat()), 5f)
+
                 popMatrix()
             }
 

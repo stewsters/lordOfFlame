@@ -30,10 +30,13 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
     val cities = mutableListOf<Hexagon<TileData>>()
     val roads = mutableSetOf<Pair<Hexagon<TileData>, Hexagon<TileData>>>()
     val rivers = mutableSetOf<Pair<Hexagon<TileData>, Hexagon<TileData>>>()
+    val soldiers = mutableSetOf<Soldier>()
 
     // This is used to control whos turn is next
     val turnQueue = PriorityQueue<Soldier>(100) { t, o -> t.nextTurn.compareTo(o.nextTurn) }
 
+
+    // For roads
     fun getPath(start: Hexagon<TileData>, end: Hexagon<TileData>): List<Hexagon<TileData>>? {
         val p = findGenericPath(
             cost = { x, y ->
@@ -63,6 +66,7 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
         val tileData = hexagon.satelliteData.get()
         tileData.soldiers.add(soldier)
         turnQueue.add(soldier)
+        soldiers.add(soldier)
     }
 
 
@@ -104,7 +108,12 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
         dead.forEach { soldier ->
             turnQueue.remove(soldier)
             tileData.soldiers.remove(soldier)
+            soldiers.remove(soldier)
         }
+    }
+
+    fun getSoldiers(): List<Soldier> {
+        return soldiers.toList()
     }
 
 }
