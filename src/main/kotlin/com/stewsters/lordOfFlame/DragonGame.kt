@@ -4,7 +4,7 @@ import com.stewsters.com.stewsters.lordOfFlame.game.Faction
 import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
-import com.stewsters.com.stewsters.lordOfFlame.game.assignActions
+import com.stewsters.com.stewsters.lordOfFlame.game.ai.assignActions
 import com.stewsters.com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.generator.generateMap
 import com.stewsters.lordOfFlame.map.HexMap
@@ -243,6 +243,19 @@ class DragonGame : PApplet() {
         text("Height over ground: ${heightOverGround}", 10f, 30f)
         text("AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}", 10f, 40f)
 
+        if(hexHighlight.isPresent) {
+            val highlighted = hexHighlight.get().satelliteData.get();
+            text("T: ${highlighted.type?.name} E:${highlighted.type?.height}", 10f, 60f)
+            if (highlighted.soldiers.isNotEmpty()) {
+                highlighted.soldiers.forEachIndexed { i, soldier ->
+                    text(
+                        "${soldier.soldierType.name} hp:${soldier.hp}/${soldier.soldierType.maxHp}",
+                        10f,
+                        i * 10f + 70f
+                    )
+                }
+            }
+        }
     }
 
 }
