@@ -47,4 +47,7 @@ class DiveAction(
         return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
+
+    override fun getDisplayName(): String = "Dive"
+    override fun getControl(): Char = 'x'
 }

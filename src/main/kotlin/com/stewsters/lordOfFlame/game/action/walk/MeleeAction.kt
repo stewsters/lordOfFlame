@@ -42,4 +42,7 @@ class MeleeAction(
         hexMap.damageTile(nextTileData, attack.damage, 10)
         return attack.timeCost
     }
+
+    override fun getDisplayName(): String = "Attack Forward"
+    override fun getControl() = 'w'
 }

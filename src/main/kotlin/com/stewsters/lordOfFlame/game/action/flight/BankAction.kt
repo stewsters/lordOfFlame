@@ -8,7 +8,7 @@ import com.stewsters.lordOfFlame.map.HexMap
 class BankAction(
     private val soldier: Soldier,
     private val hexMap: HexMap,
-    right: Boolean
+    val right: Boolean
 ) : Action {
 
     val newFacing = if (right) soldier.facing.rotateRight() else soldier.facing.rotateLeft()
@@ -52,4 +52,7 @@ class BankAction(
         return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
+
+    override fun getDisplayName(): String = "Bank ${ if(right) "Right" else "Left"}"
+    override fun getControl(): Char = if(right) 'e' else 'q'
 }

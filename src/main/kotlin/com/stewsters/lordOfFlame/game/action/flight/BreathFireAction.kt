@@ -55,4 +55,7 @@ class BreathFireAction(
         return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
+
+    override fun getDisplayName(): String = "Breath Fire"
+    override fun getControl(): Char = 'f'
 }

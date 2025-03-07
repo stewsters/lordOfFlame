@@ -55,4 +55,8 @@ class WalkForwardAction(
         return soldier.soldierType.groundSpeed
 
     }
+
+    override fun getDisplayName(): String = "Walk Forward"
+    override fun getControl(): Char = 'w'
+
 }

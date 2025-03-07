@@ -27,4 +27,7 @@ class TurnInPlaceAction(
         return soldier.soldierType.groundTurnSpeed
 
     }
+
+    override fun getDisplayName(): String = "Turn ${ if(right) "Right" else "Left"}"
+    override fun getControl(): Char = if(right) 'd' else 'a'
 }

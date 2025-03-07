@@ -44,4 +44,7 @@ class FlyForwardAction(
         // high airspeed reduces time to fly a hex
         return Math.round(100f / Math.max(flier.airspeed, 1))
     }
+
+    override fun getDisplayName(): String = "Fly Forward"
+    override fun getControl(): Char = 'w'
 }

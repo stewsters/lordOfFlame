@@ -55,4 +55,6 @@ class RoarAction(
 
     }
 
+    override fun getDisplayName(): String = "Roar and Fly Forward"
+    override fun getControl(): Char = 'r'
 }

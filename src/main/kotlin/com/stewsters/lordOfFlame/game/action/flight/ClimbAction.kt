@@ -47,5 +47,8 @@ class ClimbAction(
         return Math.round(100f / Math.max(flier.airspeed, 1))
 
     }
+
+    override fun getDisplayName(): String = "Climb"
+    override fun getControl(): Char = 's'
 }
 

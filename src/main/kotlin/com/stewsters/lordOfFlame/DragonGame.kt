@@ -243,6 +243,10 @@ class DragonGame : PApplet() {
         text("Height over ground: ${heightOverGround}", 10f, 30f)
         text("AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}", 10f, 40f)
 
+        PlayerAi.optionCache.forEachIndexed { index, it ->
+            text("${it.getControl()} : ${it.getDisplayName()}", 10f, 60f + index * 10)
+        }
+
     }
 
 }
