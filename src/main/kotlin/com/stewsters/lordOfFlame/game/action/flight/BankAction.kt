@@ -53,6 +53,6 @@ class BankAction(
 
     }
 
-    override fun getDisplayName(): String = "Bank ${ if(right) "Right" else "Left"}"
-    override fun getControl(): Char = if(right) 'e' else 'q'
+    override fun getDisplayName(): String = "Bank ${if (right) "Right" else "Left"}"
+    override fun getControl(): Char = if (right) 'e' else 'q'
 }

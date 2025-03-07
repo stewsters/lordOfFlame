@@ -230,7 +230,7 @@ class DragonGame : PApplet() {
 
         // Draw in screen space
         fill(Color.white.rgb)
-        rect(0f, 0f, 150f, 150f)
+        rect(0f, 0f, 150f, 200f)
         fill(Color.BLACK.rgb)
 
         val tileOver = hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get().satelliteData.get()
@@ -238,27 +238,40 @@ class DragonGame : PApplet() {
         val absHeight = mainCharacter.flier?.elevation ?: groundHeight
         val heightOverGround = absHeight - groundHeight
 
-        text("Abs Height : ${absHeight}", 10f, 10f)
-        text("Ground Height : ${groundHeight}", 10f, 20f)
-        text("Height over ground: ${heightOverGround}", 10f, 30f)
-        text("AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}", 10f, 40f)
+        val leftPane = mutableListOf<String>(
+            "Abs Height : ${absHeight}",
+            "Ground Height : ${groundHeight}",
+            "Height over ground: ${heightOverGround}",
+            "AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}",
+        )
 
+        // Controls section
+        leftPane.add("")
+        leftPane.add("MOVES:")
         PlayerAi.optionCache.forEachIndexed { index, it ->
-            text("${it.getControl()} : ${it.getDisplayName()}", 10f, 60f + index * 10)
+            leftPane.add("${it.getControl().uppercase()} : ${it.getDisplayName()}")
         }
 
-        if(hexHighlight.isPresent) {
+        // Highlight Detail
+        if (hexHighlight.isPresent) {
+            leftPane.add("")
+            leftPane.add("Highlight:")
             val highlighted = hexHighlight.get().satelliteData.get();
-            text("T: ${highlighted.type?.name} E:${highlighted.type?.height}", 10f, 60f)
+            leftPane.add("Type: ${highlighted.type?.name}")
+            leftPane.add("Elevation :${highlighted.type?.height}")
+
             if (highlighted.soldiers.isNotEmpty()) {
                 highlighted.soldiers.forEachIndexed { i, soldier ->
-                    text(
-                        "${soldier.soldierType.name} hp:${soldier.hp}/${soldier.soldierType.maxHp}",
-                        10f,
-                        i * 10f + 70f
+                    leftPane.add(
+                        "${soldier.soldierType.name} hp:${soldier.hp}/${soldier.soldierType.maxHp}"
                     )
                 }
             }
+        }
+
+        // Render the pane
+        leftPane.forEachIndexed { index, it ->
+            text(it, 10f, 10 + index * 10f)
         }
 
 

@@ -20,34 +20,35 @@ class PlayerAi : Ai {
         val next = nextAction
 
         // Update that list of available actions
-         if (next == null) {
-             if(optionCache.isEmpty()) {
-                 getPossibleOptions(soldier, hexMap)
-             }
-         } else {
-             optionCache = listOf()
-         }
+        if (next == null) {
+            if (optionCache.isEmpty()) {
+                getPossibleOptions(soldier, hexMap)
+            }
+        } else {
+            optionCache = listOf()
+        }
 
         nextAction = null
         return next
     }
 
     companion object {
-        var optionCache= listOf<Action>();
+        var optionCache = listOf<Action>();
 
-        fun getPossibleOptions (mainCharacter: Soldier,
-                                       hexMap: HexMap
-        ){
+        fun getPossibleOptions(
+            mainCharacter: Soldier,
+            hexMap: HexMap
+        ) {
             optionCache = listOf<Action>(
-             FlyForwardAction(mainCharacter, hexMap),
-             BankAction(mainCharacter, hexMap, right = true),
-             BankAction(mainCharacter, hexMap, right = false),
+                FlyForwardAction(mainCharacter, hexMap),
+                BankAction(mainCharacter, hexMap, right = true),
+                BankAction(mainCharacter, hexMap, right = false),
 //                 TurnRightAction()
 //                 TurnLeftAction()
-             DiveAction(mainCharacter, hexMap),
-             ClimbAction(mainCharacter, hexMap),
-            BreathFireAction(mainCharacter, hexMap),
-            RoarAction(mainCharacter, hexMap)
+                DiveAction(mainCharacter, hexMap),
+                ClimbAction(mainCharacter, hexMap),
+                BreathFireAction(mainCharacter, hexMap),
+                RoarAction(mainCharacter, hexMap)
             ).filter { it.canDo() }
         }
 

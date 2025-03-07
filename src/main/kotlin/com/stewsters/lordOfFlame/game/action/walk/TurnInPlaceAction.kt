@@ -28,6 +28,6 @@ class TurnInPlaceAction(
 
     }
 
-    override fun getDisplayName(): String = "Turn ${ if(right) "Right" else "Left"}"
-    override fun getControl(): Char = if(right) 'd' else 'a'
+    override fun getDisplayName(): String = "Turn ${if (right) "Right" else "Left"}"
+    override fun getControl(): Char = if (right) 'd' else 'a'
 }

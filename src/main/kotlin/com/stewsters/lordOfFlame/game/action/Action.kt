@@ -7,7 +7,7 @@ interface Action {
     fun doIt(): Int
 
     fun getDisplayName(): String
-    fun getControl():Char
+    fun getControl(): Char
 }
 
 
