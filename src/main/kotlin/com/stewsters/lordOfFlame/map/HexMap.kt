@@ -71,7 +71,7 @@ class HexMap(builder: HexagonalGridBuilder<TileData>) {
 
 
     fun takeTurn() {
-        var turnsCounter = 0;
+        var turnsCounter = 0
 
         while (turnsCounter < 10) {
             val turnTaker = turnQueue.poll()

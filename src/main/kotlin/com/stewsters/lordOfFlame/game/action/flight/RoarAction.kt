@@ -1,4 +1,4 @@
-package com.stewsters.lordOfFlame.game.action.flight;
+package com.stewsters.lordOfFlame.game.action.flight
 
 import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.action.Action

@@ -110,7 +110,7 @@ class DragonGame : PApplet() {
         }
 
         // Draw the background
-        imageMode(PConstants.CORNER)
+        imageMode(CORNER)
         image(background, 0f, 0f)
 
         push()
@@ -179,10 +179,10 @@ class DragonGame : PApplet() {
             }
             // sort by height
             satelliteData.soldiers.forEach { soldier ->
-                pushMatrix();
+                pushMatrix()
                 translate(hex.centerX.toFloat(), hex.centerY.toFloat())
-                rotate(radians(soldier.facing.angle()));
-                tint(soldier.faction.color.rgb);
+                rotate(radians(soldier.facing.angle()))
+                tint(soldier.faction.color.rgb)
                 image(soldier.soldierType.icon, 0f, 0f)
                 fill(Color.red.rgb)
                 rect(-20f, 30f, 40f * (soldier.hp.toFloat() / soldier.soldierType.maxHp.toFloat()), 5f)
@@ -229,9 +229,6 @@ class DragonGame : PApplet() {
         pop() // Done with camera
 
         // Draw in screen space
-        fill(Color.white.rgb)
-        rect(0f, 0f, 150f, 200f)
-        fill(Color.BLACK.rgb)
 
         val tileOver = hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get().satelliteData.get()
         val groundHeight = tileOver.type?.height ?: 0
@@ -239,9 +236,9 @@ class DragonGame : PApplet() {
         val heightOverGround = absHeight - groundHeight
 
         val leftPane = mutableListOf<String>(
-            "Abs Height : ${absHeight}",
-            "Ground Height : ${groundHeight}",
-            "Height over ground: ${heightOverGround}",
+            "Abs Height : $absHeight",
+            "Ground Height : $groundHeight",
+            "Height over ground: $heightOverGround",
             "AirSpeed : ${mainCharacter.flier?.airspeed ?: 0}",
         )
 
@@ -256,7 +253,7 @@ class DragonGame : PApplet() {
         if (hexHighlight.isPresent) {
             leftPane.add("")
             leftPane.add("Highlight:")
-            val highlighted = hexHighlight.get().satelliteData.get();
+            val highlighted = hexHighlight.get().satelliteData.get()
             leftPane.add("Type: ${highlighted.type?.name}")
             leftPane.add("Elevation :${highlighted.type?.height}")
 
@@ -270,10 +267,13 @@ class DragonGame : PApplet() {
         }
 
         // Render the pane
-        leftPane.forEachIndexed { index, it ->
-            text(it, 10f, 10 + index * 10f)
-        }
+        fill(Color.white.rgb)
+        rect(0f, 0f, 150f, 240f)
+        fill(Color.BLACK.rgb)
 
+        leftPane.forEachIndexed { index, it ->
+            text(it, 14f, 10 + index * 14f)
+        }
 
     }
 

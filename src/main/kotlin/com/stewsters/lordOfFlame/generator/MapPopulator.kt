@@ -9,7 +9,7 @@ import kotlin.random.Random
 
 fun populate(hexMap: HexMap): Soldier {
 
-    val startingCity = hexMap.cities.first()
+    val startingCity = hexMap.cities.random()
     val dragon = Soldier(
         pos = startingCity.cubeCoordinate,
         facing = Facing.NORTHEAST,
@@ -24,7 +24,7 @@ fun populate(hexMap: HexMap): Soldier {
             pos = it.cubeCoordinate,
             facing = Facing.entries.random(),
             faction = Faction.entries.get(i % 2),
-            soldierType = SoldierType.values().filter { it != SoldierType.DRAGON }.random(),
+            soldierType = SoldierType.entries.filter { it != SoldierType.DRAGON }.random(),
 //            hp = TODO(),
 //            morale = TODO(),
             nextTurn = Random.nextInt(100)

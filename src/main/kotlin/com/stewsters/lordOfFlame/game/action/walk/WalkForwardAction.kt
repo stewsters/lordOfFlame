@@ -8,7 +8,7 @@ import com.stewsters.lordOfFlame.types.TerrainType
 
 class WalkForwardAction(
     private val soldier: Soldier,
-    private val hexMap: HexMap
+     hexMap: HexMap
 ) : Action {
 
 

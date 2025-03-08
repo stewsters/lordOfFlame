@@ -7,7 +7,7 @@ import com.stewsters.lordOfFlame.map.HexMap
 
 class BankAction(
     private val soldier: Soldier,
-    private val hexMap: HexMap,
+    hexMap: HexMap,
     val right: Boolean
 ) : Action {
 
@@ -16,7 +16,7 @@ class BankAction(
     val currentHex = hexMap.grid.getByCubeCoordinate(soldier.pos).get()
 
     // next grid
-    val nextCoord = soldier.pos.plus(newFacing);
+    val nextCoord = soldier.pos.plus(newFacing)
     val nextHex = hexMap.grid.getByCubeCoordinate(nextCoord)
     val flier = soldier.flier
 

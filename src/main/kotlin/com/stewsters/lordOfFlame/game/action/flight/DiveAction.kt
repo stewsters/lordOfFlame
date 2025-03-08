@@ -8,7 +8,7 @@ import kotlin.math.min
 
 class DiveAction(
     private val soldier: Soldier,
-    private val hexMap: HexMap
+     hexMap: HexMap
 ) : Action {
 
     val currentHex = hexMap.grid.getByCubeCoordinate(soldier.pos).get()

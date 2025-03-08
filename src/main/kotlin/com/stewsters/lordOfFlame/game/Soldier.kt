@@ -13,7 +13,7 @@ class Soldier(
     var nextTurn: Int,
     val ai: Ai = soldierType.defaultAi,
     var order: Order? = null,
-    val flier: Flier? = if (soldierType == SoldierType.DRAGON)
+    var flier: Flier? = if (soldierType == SoldierType.DRAGON)
         Flier(airspeed = 2, elevation = 2)
     else null
 )

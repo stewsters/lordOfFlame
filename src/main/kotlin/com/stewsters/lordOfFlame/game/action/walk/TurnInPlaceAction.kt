@@ -17,7 +17,7 @@ class TurnInPlaceAction(
     override fun doIt(
     ): Int {
 
-        println("Turn ${right}")
+        println("Turn $right")
 
         soldier.facing = if (right)
             soldier.facing.rotateRight()

@@ -12,11 +12,11 @@ enum class Facing(val index: Int, val add: (CubeCoordinate) -> CubeCoordinate) {
     NORTHWEST(5, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX - 1, o.gridZ) });
 
     fun rotateLeft() =
-        Facing.values()[(index - 1 + 6) % 6]
+        entries[(index - 1 + 6) % 6]
 
 
     fun rotateRight() =
-        Facing.values()[(index + 1) % 6]
+        entries[(index + 1) % 6]
 
     fun angle(): Float {
         return index * 60f

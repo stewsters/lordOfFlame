@@ -7,7 +7,7 @@ import com.stewsters.lordOfFlame.map.HexMap
 
 class FlyForwardAction(
     private val soldier: Soldier,
-    private val hexMap: HexMap
+    hexMap: HexMap
 ) : Action {
 
     val currentHex = hexMap.grid.getByCubeCoordinate(soldier.pos).get()

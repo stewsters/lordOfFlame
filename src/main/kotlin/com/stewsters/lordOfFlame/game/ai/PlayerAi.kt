@@ -7,6 +7,11 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BreathFireActi
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.ClimbAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.DiveAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.LandAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.MeleeAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TakeoffAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
+import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
 import com.stewsters.lordOfFlame.game.action.flight.RoarAction
 import com.stewsters.lordOfFlame.map.HexMap
 
@@ -33,29 +38,42 @@ class PlayerAi : Ai {
     }
 
     companion object {
-        var optionCache = listOf<Action>();
+        var optionCache = listOf<Action>()
 
         fun getPossibleOptions(
             mainCharacter: Soldier,
             hexMap: HexMap
         ) {
-            optionCache = listOf<Action>(
-                FlyForwardAction(mainCharacter, hexMap),
-                BankAction(mainCharacter, hexMap, right = true),
-                BankAction(mainCharacter, hexMap, right = false),
+            val options = if (mainCharacter.flier != null) {
+                listOf<Action>(
+                    FlyForwardAction(mainCharacter, hexMap),
+                    BankAction(mainCharacter, hexMap, right = true),
+                    BankAction(mainCharacter, hexMap, right = false),
 //                 TurnRightAction()
 //                 TurnLeftAction()
-                DiveAction(mainCharacter, hexMap),
-                ClimbAction(mainCharacter, hexMap),
-                BreathFireAction(mainCharacter, hexMap),
-                RoarAction(mainCharacter, hexMap)
-            ).filter { it.canDo() }
+                    DiveAction(mainCharacter, hexMap),
+                    ClimbAction(mainCharacter, hexMap),
+                    BreathFireAction(mainCharacter, hexMap),
+                    RoarAction(mainCharacter, hexMap),
+                    LandAction(mainCharacter, hexMap)
+                )
+            } else {
+                listOf<Action>(
+                    WalkForwardAction(mainCharacter, hexMap),
+                    MeleeAction(mainCharacter, hexMap),
+                    TurnInPlaceAction(mainCharacter, hexMap, right = true),
+                    TurnInPlaceAction(mainCharacter, hexMap, right = false),
+                    TakeoffAction(mainCharacter, hexMap)
+                )
+            }
+
+            optionCache = options.filter { it.canDo() }
         }
 
         private var nextAction: Action? = null
 
         fun keyTyped(key: Char, mainCharacter: Soldier, hexMap: HexMap) {
-            val potentialAction =
+            val potentialAction = if (mainCharacter.flier != null) {
                 when (key) {
                     'w' -> FlyForwardAction(mainCharacter, hexMap)
                     'e' -> BankAction(mainCharacter, hexMap, right = true)
@@ -66,9 +84,19 @@ class PlayerAi : Ai {
                     's' -> ClimbAction(mainCharacter, hexMap)
                     'f' -> BreathFireAction(mainCharacter, hexMap)
                     'r' -> RoarAction(mainCharacter, hexMap)
+                    'l' -> LandAction(mainCharacter, hexMap)
                     else -> null
                 }
-
+            } else {
+                val walk = WalkForwardAction(mainCharacter, hexMap)
+                when (key) {
+                    'w' -> if (walk.canDo()) walk else MeleeAction(mainCharacter, hexMap)
+                    'd' -> TurnInPlaceAction(mainCharacter, hexMap, right = true)
+                    'a' -> TurnInPlaceAction(mainCharacter, hexMap, right = false)
+                    'l' -> TakeoffAction(mainCharacter, hexMap)
+                    else -> null
+                }
+            }
             if (potentialAction != null && potentialAction.canDo()) {
                 nextAction = potentialAction
             }
