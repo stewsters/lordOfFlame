@@ -118,8 +118,12 @@ class PlayerAi : Ai {
             val playerHex = hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get()
             println(playerHex.cubeCoordinate)
 
+            val playerHexHeight = playerHex.satelliteData.get().type?.height ?: 0
+
+            val height = mainCharacter.flier?.elevation ?: (playerHexHeight +1)
+
             //  hexMap.calc.calculateRingFrom(playerHex, 2)
-            val ring = calculateRingFrom(mainCharacter.pos, 4)
+            val ring = calculateRingFrom(mainCharacter.pos,  3 + (height ))
             println(ring)
             visible.clear()
 
@@ -127,7 +131,7 @@ class PlayerAi : Ai {
 //            visible.add(hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get())
 //            return
 
-            val height = mainCharacter.flier?.elevation ?: 0
+
 
             visible.clear()
             ring.forEach { edge ->

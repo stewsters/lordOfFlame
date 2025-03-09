@@ -128,7 +128,7 @@ class DragonGame : PApplet() {
         val lower = camera.screenToWorld(this, hexMap.grid, -1.0, -1.0)
         val higher = camera.screenToWorld(this, hexMap.grid, width.toDouble() - 1, height.toDouble() - 1)
 
-        hexMap.grid.hexagons.filter { PlayerAi.visible.contains(it) }.forEach { hex ->
+        hexMap.grid.hexagons.forEach { hex ->
 
 
             // Don't render off screen
@@ -143,7 +143,7 @@ class DragonGame : PApplet() {
             // Fill
             if (hexHighlight.isPresent && hexHighlight.get() == hex) {
                 fill(255f, 1f, 1f)
-            } else if (satelliteData.type?.color != null)
+            } else if (PlayerAi.visible.contains(hex) && satelliteData.type?.color != null)
                 fill(satelliteData.type!!.color)
             else
                 noFill()

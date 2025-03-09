@@ -38,7 +38,7 @@ class TakeoffAction(
         return 50
     }
 
-    override fun getDisplayName() = "Land"
+    override fun getDisplayName() = "Take off"
     override fun getControl() = 'l'
 
 }
