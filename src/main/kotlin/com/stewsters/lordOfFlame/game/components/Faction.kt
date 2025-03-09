@@ -1,4 +1,4 @@
-package com.stewsters.com.stewsters.lordOfFlame.game
+package com.stewsters.com.stewsters.lordOfFlame.game.components
 
 import java.awt.Color
 

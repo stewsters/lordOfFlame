@@ -1,5 +1,6 @@
-package com.stewsters.com.stewsters.lordOfFlame.game
+package com.stewsters.com.stewsters.lordOfFlame.game.components
 
+import com.stewsters.com.stewsters.lordOfFlame.game.Facing
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.Ai
 import org.hexworks.mixite.core.api.CubeCoordinate
 

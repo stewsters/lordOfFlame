@@ -1,6 +1,5 @@
 package com.stewsters.com.stewsters.lordOfFlame.game.ai
 
-import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BreathFireAction
@@ -12,8 +11,13 @@ import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.MeleeAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TakeoffAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.com.stewsters.lordOfFlame.maths.calculateRingFrom
+import com.stewsters.lordOfFlame.TileData
 import com.stewsters.lordOfFlame.game.action.flight.RoarAction
 import com.stewsters.lordOfFlame.map.HexMap
+import org.hexworks.mixite.core.api.Hexagon
+
 
 // There should only be 1 player, may need to revisit if thats wrong
 class PlayerAi : Ai {
@@ -28,6 +32,7 @@ class PlayerAi : Ai {
         if (next == null) {
             if (optionCache.isEmpty()) {
                 getPossibleOptions(soldier, hexMap)
+                recalculateView(soldier, hexMap)
             }
         } else {
             optionCache = listOf()
@@ -36,6 +41,7 @@ class PlayerAi : Ai {
         nextAction = null
         return next
     }
+
 
     companion object {
         var optionCache = listOf<Action>()
@@ -102,5 +108,43 @@ class PlayerAi : Ai {
             }
         }
 
+
+        var visible = mutableSetOf<Hexagon<TileData>>()
+
+        // Recalculate the view of the character
+        fun recalculateView(mainCharacter: Soldier, hexMap: HexMap) {
+            // reca
+
+            val playerHex = hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get()
+            println(playerHex.cubeCoordinate)
+
+            //  hexMap.calc.calculateRingFrom(playerHex, 2)
+            val ring = calculateRingFrom(mainCharacter.pos, 4)
+            println(ring)
+            visible.clear()
+
+//            visible.addAll(ring.map { hexMap.grid.getByCubeCoordinate(it)}.filter { it.isPresent }.map { it.get() }.toSet())
+//            visible.add(hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get())
+//            return
+
+            val height = mainCharacter.flier?.elevation ?: 0
+
+            visible.clear()
+            ring.forEach { edge ->
+                val edgeHex = hexMap.grid.getByCubeCoordinate(edge)
+                if (edgeHex.isPresent)
+                    for (point in hexMap.calc.drawLine(playerHex, edgeHex.get())) {
+                        visible.add(point)
+                        if ((point.satelliteData.get().type?.height ?: 0) >= height) {
+                            println(point.cubeCoordinate.toString())
+                            // TODO: this doesnt break cleanly
+                            return@forEach
+                        }
+
+                    }
+            }
+
+        }
     }
+
 }

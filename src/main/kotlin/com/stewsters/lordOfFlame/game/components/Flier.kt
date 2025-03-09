@@ -1,4 +1,4 @@
-package com.stewsters.com.stewsters.lordOfFlame.game
+package com.stewsters.com.stewsters.lordOfFlame.game.components
 
 // fly height  0 - 3
 // 0 - lake, grass, tree (though trees should block los 1 higher)

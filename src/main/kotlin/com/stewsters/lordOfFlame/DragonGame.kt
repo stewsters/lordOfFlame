@@ -1,10 +1,10 @@
 package com.stewsters.lordOfFlame
 
-import com.stewsters.com.stewsters.lordOfFlame.game.Faction
-import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
 import com.stewsters.com.stewsters.lordOfFlame.game.ai.assignActions
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Faction
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.com.stewsters.lordOfFlame.game.components.SoldierType
 import com.stewsters.com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.generator.generateMap
 import com.stewsters.lordOfFlame.map.HexMap
@@ -14,7 +14,6 @@ import org.hexworks.mixite.core.api.HexagonOrientation
 import org.hexworks.mixite.core.api.HexagonalGridBuilder
 import org.hexworks.mixite.core.api.HexagonalGridLayout
 import processing.core.PApplet
-import processing.core.PConstants
 import processing.core.PGraphics
 import processing.core.PImage
 import java.awt.Color
@@ -129,7 +128,8 @@ class DragonGame : PApplet() {
         val lower = camera.screenToWorld(this, hexMap.grid, -1.0, -1.0)
         val higher = camera.screenToWorld(this, hexMap.grid, width.toDouble() - 1, height.toDouble() - 1)
 
-        hexMap.grid.hexagons.forEach { hex ->
+        hexMap.grid.hexagons.filter { PlayerAi.visible.contains(it) }.forEach { hex ->
+
 
             // Don't render off screen
             if (lower.isPresent && (hex.centerX < lower.get().centerX - 1 || hex.centerY < lower.get().centerY - radius)) {

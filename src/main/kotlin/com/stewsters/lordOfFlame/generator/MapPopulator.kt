@@ -1,9 +1,9 @@
 package com.stewsters.com.stewsters.lordOfFlame.generator
 
 import com.stewsters.com.stewsters.lordOfFlame.game.Facing
-import com.stewsters.com.stewsters.lordOfFlame.game.Faction
-import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.game.SoldierType
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Faction
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.com.stewsters.lordOfFlame.game.components.SoldierType
 import com.stewsters.lordOfFlame.map.HexMap
 import kotlin.random.Random
 

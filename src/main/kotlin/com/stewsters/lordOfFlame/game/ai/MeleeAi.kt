@@ -1,9 +1,10 @@
 package com.stewsters.com.stewsters.lordOfFlame.game.ai
 
-import com.stewsters.com.stewsters.lordOfFlame.game.Soldier
 import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
 import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
 import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
+import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.com.stewsters.lordOfFlame.maths.add
 import com.stewsters.lordOfFlame.TileData
 import com.stewsters.lordOfFlame.map.HexMap
 import kaiju.pathfinder.Path
@@ -38,7 +39,7 @@ class MeleeAi : Ai {
 
             if ((path?.size ?: 0) > 1) {
                 val nextNode = path!!.get(1)
-                if (soldier.facing.add(soldier.pos) == nextNode.cubeCoordinate) {
+                if (soldier.facing.offset.add(soldier.pos) == nextNode.cubeCoordinate) {
                     val walk = WalkForwardAction(soldier, hexMap)
                     if (walk.canDo())
                         return walk

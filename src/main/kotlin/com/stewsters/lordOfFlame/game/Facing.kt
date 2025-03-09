@@ -2,14 +2,17 @@ package com.stewsters.com.stewsters.lordOfFlame.game
 
 import org.hexworks.mixite.core.api.CubeCoordinate
 
-enum class Facing(val index: Int, val add: (CubeCoordinate) -> CubeCoordinate) {
+enum class Facing(
+    val index: Int,
+    val offset: CubeCoordinate,
+) {
 
-    NORTH(0, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX, o.gridZ - 1) }),
-    NORTHEAST(1, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX + 1, o.gridZ - 1) }),
-    SOUTHEAST(2, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX + 1, o.gridZ) }),
-    SOUTH(3, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX, o.gridZ + 1) }),
-    SOUTHWEST(4, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX - 1, o.gridZ + 1) }),
-    NORTHWEST(5, { o: CubeCoordinate -> CubeCoordinate.fromCoordinates(o.gridX - 1, o.gridZ) });
+    NORTH(0, CubeCoordinate.fromCoordinates(0, -1)),
+    NORTHEAST(1, CubeCoordinate.fromCoordinates(1, -1)),
+    SOUTHEAST(2, CubeCoordinate.fromCoordinates(1, 0)),
+    SOUTH(3, CubeCoordinate.fromCoordinates(0, +1)),
+    SOUTHWEST(4, CubeCoordinate.fromCoordinates(-1, 1)),
+    NORTHWEST(5, CubeCoordinate.fromCoordinates(-1, 0));
 
     fun rotateLeft() =
         entries[(index - 1 + 6) % 6]
@@ -24,6 +27,3 @@ enum class Facing(val index: Int, val add: (CubeCoordinate) -> CubeCoordinate) {
 
 }
 
-fun CubeCoordinate.plus(facing: Facing): CubeCoordinate {
-    return facing.add(this)
-}
