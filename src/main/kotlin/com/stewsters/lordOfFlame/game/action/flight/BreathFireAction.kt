@@ -29,6 +29,11 @@ class BreathFireAction(
             return false
         }
 
+        val tileOver = nextHex.get().satelliteData.get()
+        if (flier.elevation <= (tileOver.type?.height ?: 0)){
+            return false
+        }
+
         return true
     }
 
@@ -38,7 +43,7 @@ class BreathFireAction(
         println("Fly Forward")
 
         // Burn em all
-        var nextTileData = nextHex.get().satelliteData.get()
+        val nextTileData = nextHex.get().satelliteData.get()
         hexMap.damageTile(nextTileData, 50, 30)
 
         soldier.pos = nextCoord

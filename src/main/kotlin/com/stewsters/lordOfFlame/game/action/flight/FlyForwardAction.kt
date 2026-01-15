@@ -21,7 +21,12 @@ class FlyForwardAction(
             return false
         }
 
+        // if the next tile is higher than us, we would crash into the ground
         if (flier == null) {
+            return false
+        }
+        val tileOver = nextHex.get().satelliteData.get()
+        if (flier.elevation <= (tileOver.type?.height ?: 0)){
             return false
         }
         return true

@@ -26,10 +26,11 @@ class DiveAction(
         if (flier == null) {
             return false
         }
-
-        if (flier.elevation <= nextHex.get().satelliteData.get().type!!.height + 1) {
+        val tileOver = nextHex.get().satelliteData.get()
+        if (flier.elevation <= (tileOver.type?.height ?: 0) + 1){
             return false // must land
         }
+
         return true
     }
 

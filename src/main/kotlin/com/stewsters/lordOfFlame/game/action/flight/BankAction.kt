@@ -30,6 +30,10 @@ class BankAction(
         if (flier == null) {
             return false
         }
+        val tileOver = nextHex.get().satelliteData.get()
+        if (flier.elevation <= (tileOver.type?.height ?: 0)){
+            return false
+        }
         return true
     }
 
