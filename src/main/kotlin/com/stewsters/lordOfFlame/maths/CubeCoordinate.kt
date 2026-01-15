@@ -1,6 +1,6 @@
-package com.stewsters.com.stewsters.lordOfFlame.maths
+package com.stewsters.lordOfFlame.maths
 
-import com.stewsters.com.stewsters.lordOfFlame.game.Facing
+import com.stewsters.lordOfFlame.game.Facing
 import org.hexworks.mixite.core.api.CubeCoordinate
 import kotlin.math.max
 import kotlin.math.min

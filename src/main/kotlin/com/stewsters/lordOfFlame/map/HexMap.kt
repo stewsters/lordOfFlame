@@ -1,7 +1,7 @@
 package com.stewsters.lordOfFlame.map
 
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.TileData
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.types.TerrainType
 import kaiju.datastructure.PriorityQueue
 import kaiju.pathfinder.Path

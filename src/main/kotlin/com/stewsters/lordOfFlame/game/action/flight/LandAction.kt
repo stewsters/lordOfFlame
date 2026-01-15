@@ -1,7 +1,7 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.action.flight
+package com.stewsters.lordOfFlame.game.action.flight
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
 
 

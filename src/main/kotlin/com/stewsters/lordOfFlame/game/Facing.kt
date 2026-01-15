@@ -1,4 +1,4 @@
-package com.stewsters.com.stewsters.lordOfFlame.game
+package com.stewsters.lordOfFlame.game
 
 import org.hexworks.mixite.core.api.CubeCoordinate
 

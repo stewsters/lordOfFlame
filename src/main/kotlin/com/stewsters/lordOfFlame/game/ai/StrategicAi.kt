@@ -1,7 +1,7 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.ai
+package com.stewsters.lordOfFlame.game.ai
 
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Faction
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Order
+import com.stewsters.lordOfFlame.game.components.Faction
+import com.stewsters.lordOfFlame.game.components.Order
 import com.stewsters.lordOfFlame.map.HexMap
 import com.stewsters.lordOfFlame.types.TerrainType
 import org.hexworks.mixite.core.api.CubeCoordinate

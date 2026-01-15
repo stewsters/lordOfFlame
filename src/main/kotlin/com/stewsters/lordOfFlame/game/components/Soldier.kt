@@ -1,7 +1,7 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.components
+package com.stewsters.lordOfFlame.game.components
 
-import com.stewsters.com.stewsters.lordOfFlame.game.Facing
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.Ai
+import com.stewsters.lordOfFlame.game.Facing
+import com.stewsters.lordOfFlame.game.ai.Ai
 import org.hexworks.mixite.core.api.CubeCoordinate
 
 class Soldier(

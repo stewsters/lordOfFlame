@@ -1,4 +1,4 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.components
+package com.stewsters.lordOfFlame.game.components
 
 class Attack(
     val damage: Int,

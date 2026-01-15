@@ -25,4 +25,6 @@ enum class TerrainType(
     MOUNTAIN(2, 0xffb7b7b7.toInt(), traversalCost = 50.0, blocksWalker = true);
 
     var icons: List<PImage> = listOf()
+
+    fun cleanName() = name.replace("_", " ")
 }

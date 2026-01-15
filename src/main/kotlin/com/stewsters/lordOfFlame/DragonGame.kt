@@ -1,12 +1,12 @@
 package com.stewsters.lordOfFlame
 
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.assignActions
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Faction
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.game.components.SoldierType
-import com.stewsters.com.stewsters.lordOfFlame.generator.populate
+import com.stewsters.lordOfFlame.game.ai.PlayerAi
+import com.stewsters.lordOfFlame.game.ai.assignActions
+import com.stewsters.lordOfFlame.game.components.Faction
+import com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.lordOfFlame.game.components.SoldierType
 import com.stewsters.lordOfFlame.generator.generateMap
+import com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.map.HexMap
 import com.stewsters.lordOfFlame.types.TerrainType
 import org.hexworks.mixite.core.api.CubeCoordinate
@@ -254,7 +254,7 @@ class DragonGame : PApplet() {
             leftPane.add("")
             leftPane.add("Highlight:")
             val highlighted = hexHighlight.get().satelliteData.get()
-            leftPane.add("Type: ${highlighted.type?.name}")
+            leftPane.add("Type: ${highlighted.type?.cleanName()}")
             leftPane.add("Elevation :${highlighted.type?.height}")
 
             if (highlighted.soldiers.isNotEmpty()) {

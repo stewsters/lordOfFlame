@@ -1,9 +1,9 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.action.walk
+package com.stewsters.lordOfFlame.game.action.walk
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Flier
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.game.components.SoldierType
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.components.Flier
+import com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.lordOfFlame.game.components.SoldierType
 import com.stewsters.lordOfFlame.map.HexMap
 
 class TakeoffAction(

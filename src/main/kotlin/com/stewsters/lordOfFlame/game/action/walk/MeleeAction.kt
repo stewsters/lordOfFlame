@@ -1,9 +1,9 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.action.walk
+package com.stewsters.lordOfFlame.game.action.walk
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.maths.plus
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.plus
 
 class MeleeAction(
     private val soldier: Soldier,

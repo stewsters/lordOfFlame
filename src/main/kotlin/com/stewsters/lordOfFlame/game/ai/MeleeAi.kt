@@ -1,12 +1,12 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.ai
+package com.stewsters.lordOfFlame.game.ai
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.maths.add
 import com.stewsters.lordOfFlame.TileData
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
+import com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.add
 import kaiju.pathfinder.Path
 import kaiju.pathfinder.findGenericPath
 import org.hexworks.mixite.core.api.Hexagon

@@ -1,9 +1,9 @@
 package com.stewsters.lordOfFlame.game.action.flight
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.maths.plus
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.plus
 import kotlin.math.max
 
 class RoarAction(

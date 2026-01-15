@@ -1,4 +1,4 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.action
+package com.stewsters.lordOfFlame.game.action
 
 interface Action {
 

@@ -1,8 +1,8 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.components
+package com.stewsters.lordOfFlame.game.components
 
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.Ai
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.MeleeAi
-import com.stewsters.com.stewsters.lordOfFlame.game.ai.PlayerAi
+import com.stewsters.lordOfFlame.game.ai.Ai
+import com.stewsters.lordOfFlame.game.ai.MeleeAi
+import com.stewsters.lordOfFlame.game.ai.PlayerAi
 import processing.core.PImage
 
 enum class SoldierType(

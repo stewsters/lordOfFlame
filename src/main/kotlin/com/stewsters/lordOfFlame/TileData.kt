@@ -1,6 +1,6 @@
 package com.stewsters.lordOfFlame
 
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.types.TerrainType
 import org.hexworks.mixite.core.api.contract.SatelliteData
 import processing.core.PImage

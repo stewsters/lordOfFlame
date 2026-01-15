@@ -1,21 +1,21 @@
-package com.stewsters.com.stewsters.lordOfFlame.game.ai
+package com.stewsters.lordOfFlame.game.ai
 
-import com.stewsters.com.stewsters.lordOfFlame.game.action.Action
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BankAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.BreathFireAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.ClimbAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.DiveAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.flight.LandAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.MeleeAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TakeoffAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
-import com.stewsters.com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
-import com.stewsters.com.stewsters.lordOfFlame.game.components.Soldier
-import com.stewsters.com.stewsters.lordOfFlame.maths.calculateRingFrom
 import com.stewsters.lordOfFlame.TileData
+import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.action.flight.BankAction
+import com.stewsters.lordOfFlame.game.action.flight.BreathFireAction
+import com.stewsters.lordOfFlame.game.action.flight.ClimbAction
+import com.stewsters.lordOfFlame.game.action.flight.DiveAction
+import com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
+import com.stewsters.lordOfFlame.game.action.flight.LandAction
 import com.stewsters.lordOfFlame.game.action.flight.RoarAction
+import com.stewsters.lordOfFlame.game.action.walk.MeleeAction
+import com.stewsters.lordOfFlame.game.action.walk.TakeoffAction
+import com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
+import com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
+import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.calculateRingFrom
 import org.hexworks.mixite.core.api.Hexagon
 
 
@@ -120,17 +120,16 @@ class PlayerAi : Ai {
 
             val playerHexHeight = playerHex.satelliteData.get().type?.height ?: 0
 
-            val height = mainCharacter.flier?.elevation ?: (playerHexHeight +1)
+            val height = mainCharacter.flier?.elevation ?: (playerHexHeight + 1)
 
             //  hexMap.calc.calculateRingFrom(playerHex, 2)
-            val ring = calculateRingFrom(mainCharacter.pos,  3 + (height ))
+            val ring = calculateRingFrom(mainCharacter.pos, 3 + (height))
             println(ring)
             visible.clear()
 
 //            visible.addAll(ring.map { hexMap.grid.getByCubeCoordinate(it)}.filter { it.isPresent }.map { it.get() }.toSet())
 //            visible.add(hexMap.grid.getByCubeCoordinate(mainCharacter.pos).get())
 //            return
-
 
 
             visible.clear()
