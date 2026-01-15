@@ -268,7 +268,7 @@ class DragonGame : PApplet() {
 
         // Render the pane
         fill(Color.white.rgb)
-        rect(0f, 0f, 150f, 240f)
+        rect(0f, 0f, 150f, leftPane.size * 14f)
         fill(Color.BLACK.rgb)
 
         leftPane.forEachIndexed { index, it ->
