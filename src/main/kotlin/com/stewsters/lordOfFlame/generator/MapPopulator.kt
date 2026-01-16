@@ -4,8 +4,8 @@ import com.stewsters.lordOfFlame.game.Facing
 import com.stewsters.lordOfFlame.game.components.Faction
 import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.game.components.SoldierType
-import com.stewsters.lordOfFlame.game.components.getNeighbors
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.getNeighbors
 import kotlin.random.Random
 
 fun populate(hexMap: HexMap): Soldier {

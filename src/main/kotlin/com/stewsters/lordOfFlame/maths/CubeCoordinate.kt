@@ -2,6 +2,7 @@ package com.stewsters.lordOfFlame.maths
 
 import com.stewsters.lordOfFlame.game.Facing
 import org.hexworks.mixite.core.api.CubeCoordinate
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -11,8 +12,17 @@ fun CubeCoordinate.plus(facing: Facing): CubeCoordinate {
     return this.plus(facing.offset)
 }
 
-fun CubeCoordinate.plus(other: CubeCoordinate): CubeCoordinate {
+operator fun CubeCoordinate.plus(other: CubeCoordinate): CubeCoordinate {
     return CubeCoordinate.fromCoordinates(this.gridX + other.gridX, this.gridZ + other.gridZ)
+}
+
+operator fun CubeCoordinate.minus(other: CubeCoordinate): CubeCoordinate {
+    return CubeCoordinate.fromCoordinates(this.gridX - other.gridX, this.gridZ - other.gridZ)
+}
+
+fun CubeCoordinate.distanceTo(other: CubeCoordinate): Int {
+    val vec = this - other
+    return (abs(vec.gridX) + abs(vec.gridY) + abs(vec.gridZ)) / 2
 }
 
 fun CubeCoordinate.scale(scale: Int): CubeCoordinate {
@@ -24,6 +34,33 @@ fun CubeCoordinate.add(
 ): CubeCoordinate {
     return CubeCoordinate.fromCoordinates(this.gridX + other.gridX, this.gridZ + other.gridZ)
 }
+
+
+fun CubeCoordinate.getNeighbors(): List<CubeCoordinate> {
+
+    return listOf(
+        CubeCoordinate.fromCoordinates(gridX + 1, gridZ - 1),
+        CubeCoordinate.fromCoordinates(gridX + 1, gridZ),
+        CubeCoordinate.fromCoordinates(gridX, gridZ + 1),
+        CubeCoordinate.fromCoordinates(gridX - 1, gridZ + 1),
+        CubeCoordinate.fromCoordinates(gridX - 1, gridZ),
+        CubeCoordinate.fromCoordinates(gridX, gridZ - 1)
+    )
+}
+
+fun CubeCoordinate.directionTo(target: CubeCoordinate): Facing? {
+    if (this == target) return null
+
+    // For hex grids, the direction is the normalized vector.
+    // However, since we can be many tiles away, we find which neighbor
+    // reduces the distance the most.
+    return Facing.entries.minByOrNull { facing ->
+        this.plus(facing).distanceTo(target)
+    }
+}
+
+fun CubeCoordinate.toCoord(): String =
+    "${gridX},${gridY},${gridZ}"
 
 
 fun calculateRingFrom(center: CubeCoordinate, radius: Int): Set<CubeCoordinate> {

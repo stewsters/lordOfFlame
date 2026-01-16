@@ -2,6 +2,7 @@ package com.stewsters.lordOfFlame.game.components
 
 import com.stewsters.lordOfFlame.game.Facing
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.getNeighbors
 import com.stewsters.lordOfFlame.types.TerrainType
 import org.hexworks.mixite.core.api.CubeCoordinate
 
@@ -36,18 +37,6 @@ class ArmyCommander(
     }
 
 
-}
-
-fun CubeCoordinate.getNeighbors(): List<CubeCoordinate> {
-
-    return listOf(
-        CubeCoordinate.fromCoordinates(gridX + 1, gridZ - 1),
-        CubeCoordinate.fromCoordinates(gridX + 1, gridZ),
-        CubeCoordinate.fromCoordinates(gridX, gridZ + 1),
-        CubeCoordinate.fromCoordinates(gridX - 1, gridZ + 1),
-        CubeCoordinate.fromCoordinates(gridX - 1, gridZ),
-        CubeCoordinate.fromCoordinates(gridX, gridZ - 1)
-    )
 }
 
 

@@ -2,14 +2,19 @@ package com.stewsters.lordOfFlame.game.ai
 
 import com.stewsters.lordOfFlame.TileData
 import com.stewsters.lordOfFlame.game.action.Action
+import com.stewsters.lordOfFlame.game.action.walk.MeleeAction
 import com.stewsters.lordOfFlame.game.action.walk.TurnInPlaceAction
 import com.stewsters.lordOfFlame.game.action.walk.WalkForwardAction
 import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.map.HexMap
 import com.stewsters.lordOfFlame.maths.add
+import com.stewsters.lordOfFlame.maths.directionTo
+import com.stewsters.lordOfFlame.maths.distanceTo
 import kaiju.pathfinder.Path
 import kaiju.pathfinder.findGenericPath
+import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.Hexagon
+import kotlin.math.abs
 
 class MeleeAi : Ai {
 
@@ -20,7 +25,31 @@ class MeleeAi : Ai {
 
         // hierarchy of needs
 
-        // TODO: if there is a nearby enemy, face them and fight
+
+        val closestEnemy = hexMap.soldiers.asSequence()
+            .filter { it.faction != soldier.faction }
+            .sortedBy { enemy ->
+                val distance = enemy.pos.distanceTo(soldier.pos)
+                val turnsNeeded = turnsToFace(soldier, enemy.pos)
+                distance + (turnsNeeded * 0.5)
+            }.firstOrNull()
+
+        if (closestEnemy != null && closestEnemy.pos.distanceTo(soldier.pos) < 3) {
+
+            val action = MeleeAction(soldier, hexMap)
+            if (action.canDo()) {
+                return action
+            } else {
+                val start = hexMap.grid.getByCubeCoordinate(soldier.pos).get()
+                val end = hexMap.grid.getByCubeCoordinate(closestEnemy.pos).get()
+                val path = findMeleePath(hexMap, start, end)
+                if ((path?.size ?: 0) > 1) {
+                    val action = walkPath(path, soldier, hexMap)
+                    if (action != null)
+                        return action
+                }
+            }
+        }
 
         // if there is no nearby enemy, get an objective from the leader
 
@@ -109,6 +138,13 @@ class MeleeAi : Ai {
             is Path.Success -> p.data
             else -> null
         }
+    }
+
+
+    private fun turnsToFace(soldier: Soldier, target: CubeCoordinate): Int {
+        val directionToTarget = soldier.pos.directionTo(target) ?: return 0
+        val diff = abs(soldier.facing.index - directionToTarget.index)
+        return if (diff > 3) 6 - diff else diff
     }
 }
 

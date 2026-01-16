@@ -8,8 +8,8 @@ import com.stewsters.lordOfFlame.game.components.SoldierType
 import com.stewsters.lordOfFlame.generator.generateMap
 import com.stewsters.lordOfFlame.generator.populate
 import com.stewsters.lordOfFlame.map.HexMap
+import com.stewsters.lordOfFlame.maths.toCoord
 import com.stewsters.lordOfFlame.types.TerrainType
-import org.hexworks.mixite.core.api.CubeCoordinate
 import org.hexworks.mixite.core.api.HexagonOrientation
 import org.hexworks.mixite.core.api.HexagonalGridBuilder
 import org.hexworks.mixite.core.api.HexagonalGridLayout
@@ -280,7 +280,3 @@ class DragonGame : PApplet() {
     }
 
 }
-
-private fun CubeCoordinate.toCoord(): String =
-    "${gridX},${gridY},${gridZ}"
-
