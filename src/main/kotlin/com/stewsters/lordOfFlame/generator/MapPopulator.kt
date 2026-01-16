@@ -4,12 +4,19 @@ import com.stewsters.lordOfFlame.game.Facing
 import com.stewsters.lordOfFlame.game.components.Faction
 import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.game.components.SoldierType
+import com.stewsters.lordOfFlame.game.components.getNeighbors
 import com.stewsters.lordOfFlame.map.HexMap
 import kotlin.random.Random
 
 fun populate(hexMap: HexMap): Soldier {
 
-    val startingCity = hexMap.cities.random()
+    val numCities = hexMap.cities.size
+
+
+    val sortedCities = hexMap.cities.sortedBy { it.centerX }
+
+
+    val startingCity = sortedCities.first()
     val dragon = Soldier(
         pos = startingCity.cubeCoordinate,
         facing = Facing.NORTHEAST,
@@ -19,20 +26,26 @@ fun populate(hexMap: HexMap): Soldier {
     )
     hexMap.add(dragon)
 
-    hexMap.cities.drop(1).forEachIndexed { i, it ->
-        val solder = Soldier(
-            pos = it.cubeCoordinate,
-            facing = Facing.entries.random(),
-            faction = Faction.entries.get(i % 2),
-            soldierType = SoldierType.entries.filter { it != SoldierType.DRAGON }.random(),
+    sortedCities.drop(1).forEachIndexed { i, it ->
+
+        it.cubeCoordinate.getNeighbors().forEach { coord ->
+
+            val solder = Soldier(
+                pos = coord,
+                facing = Facing.entries.random(),
+                faction = if (i < (numCities / 2)) Faction.PLAYER else Faction.ENEMY,
+                soldierType = SoldierType.entries.filter { it != SoldierType.DRAGON }.random(),
 //            hp = TODO(),
 //            morale = TODO(),
-            nextTurn = Random.nextInt(100)
+                nextTurn = Random.nextInt(100)
 //            ai = TODO(),
 //            order = TODO(),
 //            flier = TODO(),
-        )
-        hexMap.add(solder)
+            )
+            hexMap.add(solder)
+        }
+
+
     }
 
     return dragon

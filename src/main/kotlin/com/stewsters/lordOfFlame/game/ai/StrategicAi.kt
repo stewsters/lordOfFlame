@@ -1,5 +1,6 @@
 package com.stewsters.lordOfFlame.game.ai
 
+import com.stewsters.lordOfFlame.game.components.ArmyCommander
 import com.stewsters.lordOfFlame.game.components.Faction
 import com.stewsters.lordOfFlame.game.components.Order
 import com.stewsters.lordOfFlame.map.HexMap
@@ -7,7 +8,7 @@ import com.stewsters.lordOfFlame.types.TerrainType
 import org.hexworks.mixite.core.api.CubeCoordinate
 
 
-fun assignActions(faction: Faction, hexMap: HexMap) {
+fun assignCommanders(faction: Faction, hexMap: HexMap) {
 
     val soldiers = hexMap.getSoldiers()
 
@@ -29,16 +30,19 @@ fun assignActions(faction: Faction, hexMap: HexMap) {
     val absCenter = CubeCoordinate.fromCoordinates(xCenter, zCenter)
     val absCenterGrid = hexMap.grid.getByCubeCoordinate(absCenter).get()
 
-    // find closest spot
+    // find the closest spot
     val meetup = hexMap.grid.hexagons
         .filter { it.satelliteData.get().type == TerrainType.GRASSLAND }
         .minBy { hexMap.calc.calculateDistanceBetween(it, absCenterGrid) }
         .cubeCoordinate
 
     // center position of army is calculated
+    val alliedCommander = ArmyCommander(allies, meetup)
+
 
     // if far, muster all units to that center
     allies.forEach { ally ->
+        ally.commander = alliedCommander
         ally.order = Order(meetup)
     }
 

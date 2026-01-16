@@ -8,6 +8,7 @@ import com.stewsters.lordOfFlame.game.action.flight.ClimbAction
 import com.stewsters.lordOfFlame.game.action.flight.DiveAction
 import com.stewsters.lordOfFlame.game.action.flight.FlyForwardAction
 import com.stewsters.lordOfFlame.game.action.flight.LandAction
+import com.stewsters.lordOfFlame.game.action.flight.RallyAction
 import com.stewsters.lordOfFlame.game.action.flight.RoarAction
 import com.stewsters.lordOfFlame.game.action.walk.MeleeAction
 import com.stewsters.lordOfFlame.game.action.walk.TakeoffAction
@@ -61,7 +62,8 @@ class PlayerAi : Ai {
                     ClimbAction(mainCharacter, hexMap),
                     BreathFireAction(mainCharacter, hexMap),
                     RoarAction(mainCharacter, hexMap),
-                    LandAction(mainCharacter, hexMap)
+                    LandAction(mainCharacter, hexMap),
+                    RallyAction(mainCharacter, hexMap)
                 )
             } else {
                 listOf<Action>(
@@ -91,6 +93,7 @@ class PlayerAi : Ai {
                     'f' -> BreathFireAction(mainCharacter, hexMap)
                     'r' -> RoarAction(mainCharacter, hexMap)
                     'l' -> LandAction(mainCharacter, hexMap)
+                    't' -> RallyAction(mainCharacter, hexMap)
                     else -> null
                 }
             } else {

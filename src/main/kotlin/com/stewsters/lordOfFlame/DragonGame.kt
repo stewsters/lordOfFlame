@@ -1,7 +1,7 @@
 package com.stewsters.lordOfFlame
 
 import com.stewsters.lordOfFlame.game.ai.PlayerAi
-import com.stewsters.lordOfFlame.game.ai.assignActions
+import com.stewsters.lordOfFlame.game.ai.assignCommanders
 import com.stewsters.lordOfFlame.game.components.Faction
 import com.stewsters.lordOfFlame.game.components.Soldier
 import com.stewsters.lordOfFlame.game.components.SoldierType
@@ -67,7 +67,9 @@ class DragonGame : PApplet() {
 
         mainCharacter = populate(hexMap)
 
-        assignActions(Faction.PLAYER, hexMap)
+        Faction.entries.forEach {
+            assignCommanders(it, hexMap)
+        }
 
         // set initial camera pos
         camera.position.x = -widthTiles / 2f * radius.toFloat()

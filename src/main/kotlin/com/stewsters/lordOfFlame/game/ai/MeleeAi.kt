@@ -16,7 +16,13 @@ class MeleeAi : Ai {
     override fun getAction(
         soldier: Soldier,
         hexMap: HexMap
-    ): Action? {
+    ): Action {
+
+        // hierarchy of needs
+
+        // TODO: if there is a nearby enemy, face them and fight
+
+        // if there is no nearby enemy, get an objective from the leader
 
 
         // turn or advance
@@ -32,26 +38,15 @@ class MeleeAi : Ai {
             val start = hexMap.grid.getByCubeCoordinate(soldier.pos).get()
             val end = hexMap.grid.getByCubeCoordinate(order.positionId).get()
             val path = findMeleePath(hexMap, start, end)
-
-
-            // if its forward walk the next path
-//            if(path.)
-
             if ((path?.size ?: 0) > 1) {
-                val nextNode = path!!.get(1)
-                if (soldier.facing.offset.add(soldier.pos) == nextNode.cubeCoordinate) {
-                    val walk = WalkForwardAction(soldier, hexMap)
-                    if (walk.canDo())
-                        return walk
-                } else {
-                    val turn = TurnInPlaceAction(soldier, hexMap, true)
-                    if (turn.canDo())
-                        return turn
-                }
+                val action = walkPath(path, soldier, hexMap)
+                if (action != null)
+                    return action
             }
             // otherwise turn
         }
 
+        // wander
         val potentialActions = listOf(
             TurnInPlaceAction(soldier, hexMap, true),
             TurnInPlaceAction(soldier, hexMap, false),
@@ -59,6 +54,33 @@ class MeleeAi : Ai {
         ).filter { it.canDo() }
 
         return potentialActions.random()
+    }
+
+    private fun walkPath(
+        path: List<Hexagon<TileData>>?,
+        soldier: Soldier,
+        hexMap: HexMap
+    ): Action? {
+
+        val nextNode = path!!.get(1)
+        if (soldier.facing.offset.add(soldier.pos) == nextNode.cubeCoordinate) {
+            val walk = WalkForwardAction(soldier, hexMap)
+            if (walk.canDo())
+                return walk
+        } else {
+            // find left or right turn
+            val turn = if (soldier.facing.rotateRight().offset.add(soldier.pos) == nextNode.cubeCoordinate
+                || soldier.facing.rotateRight().rotateRight().offset.add(soldier.pos) == nextNode.cubeCoordinate
+            ) {
+                TurnInPlaceAction(soldier, hexMap, true)
+            } else {
+                TurnInPlaceAction(soldier, hexMap, false)
+            }
+
+            if (turn.canDo())
+                return turn
+        }
+        return null
     }
 
 
